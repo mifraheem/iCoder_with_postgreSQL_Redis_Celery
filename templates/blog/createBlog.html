@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}blog post page {% endblock title %}
+
+{% block body %}
+{% load humanize %}
+{% load extras %}
+<div class="container mt-4">
+    <form action="{% url "createPost" %}" method = "post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="title">Blog Title</label>
+          <input type="text" name="title" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Enter blog title">
+        </div>
+        <div class="form-group">
+            <label for="content">Blog Content</label>
+            <textarea class="form-control" name="content" id="content" rows="3"></textarea>
+          </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </form>
+</div>
+
+{% endblock %}

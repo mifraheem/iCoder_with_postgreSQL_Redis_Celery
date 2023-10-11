@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Blog{% endblock title %}
+
+{% block blogactive %} active {% endblock blogactive %}
+{% block body %}
+<div class="container my-3">
+    <h2>Articles by iCoder</h2>
+    {% for post in allPosts %}
+    <div class="row no-glutters border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary">Article by {{post.author}} ({{post.views}} views)</strong>
+            <h3 class="mb-0"> <a class="text-dark" href="/blog/{{post.slug}}">{{post.title}}</a></h3>
+            <div class="mb-1 text-muted">{{post.dateime}}</div>
+            <div class="preview">
+                {% with stripped_content=post.content|striptags|truncatechars:500 %}
+                    {{ stripped_content|safe }}
+                {% endwith %}
+            </div>
+            <div class="my-2">
+                <a href="/blog/{{post.slug}}" role="button" class="btn btn-primary">Continue reading</a>
+            </div> 
+            <div class="col-auto d-none d-lg-block">
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
