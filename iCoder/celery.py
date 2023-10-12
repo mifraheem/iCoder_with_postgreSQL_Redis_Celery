@@ -1,6 +1,8 @@
 import os
 from celery import Celery
 from time import sleep
+from datetime import timedelta
+from celery.schedules import crontab
 # Set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'iCoder.settings')
 
@@ -20,6 +22,30 @@ app.autodiscover_tasks()
 #     print(f"Task Received to add {x} and {y}")
 #     sleep(5)
 #     return x+y
+
+
+# schedule tasks to run automatically (METHOD #02)
+# app.conf.beat_schedule = {    
+#     'every-10-seconds-method-02': {
+#         'task': 'blog.tasks.clear_session_cache',
+#         'schedule': 10,
+#         'args': ('1111', )
+#     }
+#     # add more tasks here. 
+# }
+
+# METHOD #02 with timedelta and crontab
+app.conf.beat_schedule = {    
+    'every-10-seconds-method-02': {
+        'task': 'blog.tasks.clear_session_cache',
+        # 'schedule': timedelta(seconds=10),
+        'schedule': crontab(minute='*/1'),
+        'args': ('1111', )
+    }
+    # add more tasks here. 
+}
+
+
 
 
 @app.task(bind=True, ignore_result=True)
