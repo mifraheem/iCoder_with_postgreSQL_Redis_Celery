@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'blog.apps.BlogConfig',
     'django.contrib.humanize',
+    'django_celery_results'
 ]
 
 MIDDLEWARE = [
@@ -162,8 +163,20 @@ MESSAGE_TAGS = {
 }
 
 
-
 # CELERY SETTINGS 
 # Celery Configuration Options
 CELERY_TIMEZONE = "Australia/Tasmania"
 CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+CELERY_RESULT_BACKEND = 'django-db'
+# to show task name in django admin
+CELERY_RESULT_EXTENDED = True
+
+# schedule tasks to run automatically (METHOD #01)
+CELERY_BEAT_SCHEDULE = {
+    'every-10-seconds': {
+        'task': 'blog.tasks.clear_session_cache',
+        'schedule': 10,
+        'args': ('1111', )
+    }
+    # add more tasks here. 
+}
