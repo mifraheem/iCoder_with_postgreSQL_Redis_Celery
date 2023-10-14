@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'blog.apps.BlogConfig',
     'django.contrib.humanize',
-    'django_celery_results'
+    'django_celery_results',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -170,6 +171,7 @@ CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
 CELERY_RESULT_BACKEND = 'django-db'
 # to show task name in django admin
 CELERY_RESULT_EXTENDED = True
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 # # schedule tasks to run automatically (METHOD #01)
 # CELERY_BEAT_SCHEDULE = {

@@ -38,11 +38,11 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {    
     'every-10-seconds-method-02': {
         'task': 'blog.tasks.clear_session_cache',
-        # 'schedule': timedelta(seconds=10),
-        # 'schedule': crontab(minute='*/1'),
-        'schedule': crontab(hour=9, minute=8),
-        
+        'schedule': crontab(minute='*/1'),
         'args': ('1111', )
+        
+        # 'schedule': timedelta(seconds=10),
+        # 'schedule': crontab(hour=9, minute=8),
     }
     # add more tasks here. 
 }

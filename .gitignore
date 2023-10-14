@@ -1,3 +1,5 @@
 env/
 envUb/
 dump.rdb
+venv/
+.gitignore
